@@ -12,14 +12,19 @@ import { UserRole } from '../../../domain/entities/user.entity';
 export class RegisterDto {
   @ApiProperty({ example: 'Budi Santoso' })
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Nama lengkap tidak boleh kosong' })
   fullName: string;
 
   @ApiProperty({ example: 'budi@yukkos.com' })
   @IsEmail()
+  @IsNotEmpty({ message: 'Email tidak boleh kosong' })
   email: string;
 
-  @IsNotEmpty()
+  @ApiProperty({
+    example: '081234567890',
+    description: 'Nomor WhatsApp harus minimal 10 digit (Wajib diisi untuk komunikasi)',
+  })
+  @IsNotEmpty({ message: 'Nomor WhatsApp tidak boleh kosong' })
   @IsString()
   @MinLength(10, { message: 'Nomor WhatsApp minimal 10 digit' })
   phone: string;
